@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+      - POSTGRES_DB=postgres
+
+    ports:
+      - "5432:5432"
+    networks:
+      - app_network
+
+  app:
+    build: .
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "5000:5000"
+    environment:
+     
+    networks:
+      - app_network
+
+
+networks:
+  app_network:
+    driver: bridge
+
