@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from app.managers.db_manager import DBManager
-from app.managers.openai_manager import get_answer
+from app.managers.openai_manager import OpenAIManager
 
 def create_app():
     app = Flask(__name__)
@@ -19,8 +19,8 @@ def init_db(app):
 
 app = create_app()
 db = init_db(app)
-db_manager = DBManager()
-
+db_manager: DBManager = DBManager()
+openai_manager: OpenAIManager = OpenAIManager()
 
 @app.route("/")
 def index():
@@ -29,12 +29,16 @@ def index():
 @app.route('/ask', methods=['POST'])
 async def ask():
     data = request.get_json()
-    question = data.get('question')
+    question: str = data.get('question')
     if not question:
         return jsonify({'error': 'Question is required'}), 400
     try:
         # check if exist before open ai request
-        answer = await get_answer(question)
+        existing_answer: str = db_manager.get_answer_from_database(db, question)
+        if existing_answer:
+            return jsonify({'message': 'Question got answer successfully', 'answer': existing_answer}), 200
+
+        answer: str = await openai_manager.get_answer(question)
         db_manager.save_question_answer(db, question, answer)
         return jsonify({'message': 'Question got answer successfully', 'answer': answer}), 201
     except Exception as e:
