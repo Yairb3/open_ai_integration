@@ -1,66 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Open Api Integration</title>
+    <title>Open AI Integration</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: center;
             height: 100vh;
         }
 
-        h1 {
-            margin-bottom: 50px;
+        .container {
+            max-width: 600px;
         }
 
-        pre {
+        textarea {
+            resize: none;
+        }
+
+        .response {
             white-space: pre-wrap;
             word-wrap: break-word;
-            display: inline;
-            max-width: 50%;
         }
     </style>
 </head>
+
 <body>
-    <form>
-        <textarea id="input" placeholder="Enter your message" cols="50"></textarea>
-        <button type="submit">Send</button>
-    </form>
-    <pre id="body"></pre>
+    <div class="container">
+        <h1 class="text-center mb-4">Open AI Integration</h1>
+        <form id="question-form">
+            <div class="form-group">
+                <textarea id="input" class="form-control" placeholder="Enter your question" rows="5"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Send</button>
+        </form>
+        <pre id="response" class="response mt-4"></pre>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script>
-        const body = document.getElementById('body');
-        const submit_btn = document.querySelector('button');
-        const input = document.getElementById('input');
-
-        submit_btn.addEventListener("click", async (e) => {
+        document.getElementById('question-form').addEventListener('submit', async function (e) {
             e.preventDefault();
+            const input = document.getElementById('input').value;
 
-            const response = await fetch("/ask", {
-                method: "POST",
-                headers: {"Content-Type": "application/json"},
-                body: JSON.stringify({question: input.value})
-            });
+            const responseElement = document.getElementById('response');
+            responseElement.textContent = "Loading...";
 
-            const reader = response.body.getReader();
-            let output = "";
+            try {
+                const response = await fetch("/ask", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ question: input })
+                });
 
-            while (true) {
-                const { done, value } = await reader.read();
-                output += new TextDecoder().decode(value);
-                body.innerHTML = marked.parse(output);
+                const data = await response.json();
 
-                if (done) {
-                    return;
+                if (response.ok) {
+                    responseElement.textContent = data.answer;
+                } else {
+                    responseElement.textContent = `Error: ${data.error}`;
                 }
+            } catch (error) {
+                responseElement.textContent = `Error: ${error.message}`;
             }
-
-        })
+        });
     </script>
 </body>
+
 </html>
