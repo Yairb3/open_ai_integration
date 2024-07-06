@@ -1,11 +1,14 @@
 
 
 from flask import jsonify, render_template, request
+from app.managers.db_manager import DBManager
+from app.managers.openai_manager import OpenAIManager
 
 
-def configure_routes(app, db, db_manager, openai_manager):
+def configure_routes(app, db):
     
-
+    db_manager: DBManager = DBManager()
+    openai_manager: OpenAIManager = OpenAIManager()
     @app.route("/")
     def index():
         return render_template("index.html")
