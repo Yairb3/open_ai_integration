@@ -21,6 +21,8 @@ services:
     ports:
       - "5000:5000"
     environment:
+      - OPENAI_API_KEY=REPLACE_WITH_ENV_VALUE
+      - DATABASE_URI=REPLACE_WITH_ENV_VALUE
      
     networks:
       - app_network
