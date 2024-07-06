@@ -12,8 +12,8 @@ This project is a Flask-based web application that integrates with OpenAI to ans
 ### Local Setup with docker
 
 1. Clone the repository:
-   https://github.com/Yairb3/open_ai_integration.git
-   cd open_ai_integration
+   - git clone https://github.com/Yairb3/open_ai_integration.git
+   - cd open_ai_integration
 2. Create and activate a virtual environment:
    - python -m venv venv
    - source venv/bin/activate   # On Windows, use `venv\Scripts\activate`
