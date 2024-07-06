@@ -15,17 +15,17 @@ This project is a Flask-based web application that integrates with OpenAI to ans
    https://github.com/Yairb3/open_ai_integration.git
    cd open_ai_integration
 2. Create and activate a virtual environment:
-   python -m venv venv
-   source venv/bin/activate   # On Windows, use `venv\Scripts\activate`
-   install alembic and psycopg2 and upgrade alembic:
-   pip3 install alembic
-   pip3 install psycopg2
-   alembic upgrade head
+   - python -m venv venv
+   - source venv/bin/activate   # On Windows, use `venv\Scripts\activate`
+   - install alembic and psycopg2 and upgrade alembic:
+   - pip3 install alembic
+   - pip3 install psycopg2
+   - alembic upgrade head
 
 3. Add env file - will sent by me privatly.
 4. In docker compose file - add the env content to 'environment' under 'app' service.
 5. Run:  docker compose up --build
 6. Tests:
    After running:
-      cd .\tests
-      pytest
+      - cd .\tests
+      - pytest
