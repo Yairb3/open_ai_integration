@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, jsonify
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from app.managers.db_manager import DBManager
 from app.managers.openai_manager import OpenAIManager
@@ -9,7 +9,7 @@ def create_app():
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URI')
     if not app.config['SQLALCHEMY_DATABASE_URI']:
-        raise KeyError ("Missing SQLALCHEMY_DATABASE_URI")
+        raise KeyError ("SQLALCHEMY_DATABASE_URI is missing")
     return app
 
 def init_db(app):

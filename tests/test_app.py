@@ -10,7 +10,6 @@ from app.routes.routes import configure_routes
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 
-@pytest.fixture
 
 def start_app():
     app = Flask(__name__)
@@ -21,6 +20,7 @@ def start_app():
     configure_routes(app, db, db_manager, openai_manager)
     return app
 
+@pytest.fixture
 def client():
     app = start_app()
     with app.test_client() as client:
