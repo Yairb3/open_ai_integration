@@ -1,10 +1,8 @@
 import os
 from openai import OpenAI
-from dotenv import load_dotenv
 
 class OpenAIManager:
     def __init__(self):
-        load_dotenv()
         self.api_key = os.environ.get("OPENAI_API_KEY")
         if not self.api_key:
             raise ValueError("OPENAI_API_KEY environment variable is not set")
