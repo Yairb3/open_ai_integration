@@ -18,7 +18,4 @@ This project is a Flask-based web application that integrates with OpenAI to ans
 2. Add .env file - will sent by me privately .
 3. In docker compose file - add the env content to 'environment' under 'app' service.
 4. Run:  docker compose up --build
-5. Tests:
-   After running:
-      - cd .\tests
-      - pytest
+
