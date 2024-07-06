@@ -22,7 +22,7 @@ This project is a Flask-based web application that integrates with OpenAI to ans
    - pip3 install psycopg2
    - alembic upgrade head
 
-3. Add env file - will sent by me privatly.
+3. Add env file - will sent by me privately .
 4. In docker compose file - add the env content to 'environment' under 'app' service.
 5. Run:  docker compose up --build
 6. Tests:
