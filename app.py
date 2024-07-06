@@ -1,8 +1,6 @@
 import os
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from app.managers.db_manager import DBManager
-from app.managers.openai_manager import OpenAIManager
 from app.routes.routes import configure_routes
 
 def create_app():
@@ -22,9 +20,7 @@ def start_app():
     app = Flask(__name__)
     app = create_app()
     db = init_db(app)
-    db_manager: DBManager = DBManager()
-    openai_manager: OpenAIManager = OpenAIManager()
-    configure_routes(app, db, db_manager, openai_manager)
+    configure_routes(app, db)
     return app
 
 if __name__ == '__main__':
