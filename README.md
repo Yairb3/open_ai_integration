@@ -19,7 +19,6 @@ This project is a Flask-based web application that integrates with OpenAI to ans
    - source venv/bin/activate   # On Windows, use `venv\Scripts\activate`
    - install alembic and psycopg2 and upgrade alembic in order to create data base:
    - pip3 install alembic
-   - pip3 install psycopg2
    - alembic upgrade head
 
 3. Add .env file - will sent by me privately .
